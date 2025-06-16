@@ -21,6 +21,18 @@
         .header-bg-very-light {
             background-color: #f8faff; /* Um tom de azul muito claro, quase branco */
         }
+        /* Custom class for extra bold and slightly larger text */
+        .highlight-text {
+            font-weight: 900; /* Extra bold */
+            font-size: 1.625rem; /* Equivalent to text-2xl/3xl, making it slightly bigger */
+            color: #10b981; /* Tailwind emerald-500 or similar vibrant teal for contrast */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle shadow for more pop */
+        }
+        @media (min-width: 768px) { /* Adjust for larger screens */
+            .highlight-text {
+                font-size: 2.25rem; /* Equivalent to text-3xl/4xl on medium screens */
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -30,13 +42,13 @@
         <!-- Hero Section -->
         <header class="text-center p-8 md:p-12 rounded-2xl shadow-lg header-bg-very-light mb-12">
             <div class="max-w-4xl mx-auto">
-                <div class="flex justify-center items-center space-x-28 mb-6">
-                    <img src="https://i.imgur.com/cPCvYuY.png" alt="Logotipo do IFRR" class="h-48 object-contain">
-                    <img src="https://i.imgur.com/gt4iWcq.png" alt="Logotipo do Projeto" class="h-40 object-contain">
-                    <img src="https://i.imgur.com/dmEKMEj.png" alt="Logotipo do PBAEX" class="h-48 object-contain">
+                <div class="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-28 mb-6">
+                    <img src="https://i.imgur.com/cPCvYuY.png" alt="Logotipo do IFRR" class="h-28 object-contain">
+                    <img src="https://i.imgur.com/gt4iWcq.png" alt="Logotipo do Projeto" class="h-28 object-contain">
+                    <img src="https://i.imgur.com/dmEKMEj.png" alt="Logotipo do PBAEX" class="h-28 object-contain">
                 </div>
-                <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Inovação Pedagógica na EPT: Tecnologias e Práticas para Educadores</h1>
-                <p class="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto mb-8">Você é professor da EPT e quer transformar suas aulas com ferramentas inovadoras? Participe das oficinas gratuitas promovidas pelo IFRR – Campus Boa Vista!</p>
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4 text-center">Inovação Pedagógica na EPT: Tecnologias e Práticas para Educadores</h1>
+                <p class="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto mb-8 text-center">Você é professor da EPT e quer transformar suas aulas com ferramentas inovadoras? Participe das oficinas gratuitas promovidas pelo IFRR – Campus Boa Vista!</p>
                 <a href="#form-section" class="inline-block bg-teal-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-teal-600 transition-transform transform hover:scale-105 shadow-md">
                     Garanta sua Vaga Agora!
                 </a>
@@ -234,7 +246,7 @@
 
     </div>
 
-    <script>
+    <script type="module">
         document.addEventListener('DOMContentLoaded', function () {
             const countdownEndDate = new Date('2025-06-21T23:59:59').getTime();
 
@@ -352,8 +364,8 @@
                     const prompt = `Gere 3 ideias de aula inovadoras e práticas para o ensino de "${topic}" na Educação Profissional e Tecnológica (EPT), focando na integração de ferramentas tecnológicas como Kahoot, Google Forms e conceitos de Inteligência Artificial. Para cada ideia, inclua uma breve descrição, os recursos tecnológicos a serem utilizados e como ela promove o engajamento dos alunos. Formate a resposta de forma clara e legível, com tópicos.`;
                     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                     const payload = { contents: chatHistory };
-                   
-                    const apiKey = "AIzaSyDeDlTOrtckpyG2jv-DwMP5wKYWQU3EW7E";
+            
+                    const apiKey = "AIzaSyDeDlTOrtckpyG2jv-DwMP5wKYWQU3EW7E"; 
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                     try {
@@ -419,7 +431,7 @@
             // AI Details Section Logic
             const aiCard = document.getElementById('aiCard');
             const aiDetailsSection = document.getElementById('aiDetailsSection');
-            const closeAIDetailsBtn = document.getElementById('closeAIDetails');
+            const closeAIDetailsBtn = document.getElementById('closeAIDetails'); // Corrected line: removed accidental assignment to 'document'
 
             if (aiCard && aiDetailsSection && closeAIDetailsBtn) {
                 aiCard.addEventListener('click', function() {
