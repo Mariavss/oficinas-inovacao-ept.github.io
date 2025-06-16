@@ -352,8 +352,8 @@
                     const prompt = `Gere 3 ideias de aula inovadoras e práticas para o ensino de "${topic}" na Educação Profissional e Tecnológica (EPT), focando na integração de ferramentas tecnológicas como Kahoot, Google Forms e conceitos de Inteligência Artificial. Para cada ideia, inclua uma breve descrição, os recursos tecnológicos a serem utilizados e como ela promove o engajamento dos alunos. Formate a resposta de forma clara e legível, com tópicos.`;
                     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                     const payload = { contents: chatHistory };
-                    // IMPORTANTE: Insira sua chave da API Gemini aqui
-                    const apiKey = ""; // <--- VOCÊ PRECISA COLOCAR SUA CHAVE AQUI!
+                   
+                    const apiKey = "AIzaSyDeDlTOrtckpyG2jv-DwMP5wKYWQU3EW7E";
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                     try {
