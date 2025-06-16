@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inovação Pedagógica na EPT: Oficinas para Educadores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Educação Pastel" (Pastel Tones: bg-slate-50, text-slate-800, primary-blue-100/700, accent-teal-400/500, highlight-amber-400) -->
+    <!-- Application Structure Plan: The SPA is structured as a user journey in multiple sections: 1. Hero: Captures immediate attention with the main value proposition and CTA. 2. About: Allows users to interactively explore workshop topics via clickable cards, where clicking a card reveals a new detailed section for that topic. 3. Topics Overview: Uses a doughnut chart to visually summarize the new information on synchronous/asynchronous activity distribution. 4. Details & Urgency: Provides logistical information and uses a countdown timer. 5. AI Lesson Idea Generator: Provides interactive value aligned with the workshop's theme. 6. Final CTA: A clear, final prompt to register. The addition of dynamic detail sections for workshop topics (e.g., Kahoot, Google Workspace, and AI details) allows for deeper, on-demand information consumption, enhancing user understanding and engagement without overwhelming the main view. -->
+    <!-- Visualization & Content Choices: Report Info -> Goal -> Viz/Presentation Method -> Interaction -> Justification -> Library/Method. 1. Workshop Title/Intro -> Inform/Attract -> Hero Section with animated gradient -> None -> Grabs attention effectively -> HTML/Tailwind. 2. Workshop Topics -> Explore Details -> Clickable Cards -> On-hover elevation effect and On-click reveal detailed section -> Encourages user interaction and discovery of in-depth content -> HTML/Tailwind/JS. 3. Kahoot Topic Details -> Provide detailed information -> Dedicated content section with text and bullet points -> Close button to hide -> Presents specific workshop content in an organized, digestible way -> HTML/Tailwind/JS. 4. Google Workspace Topic Details -> Provide detailed information -> Dedicated content section with text and bullet points -> Close button to hide -> Presents specific workshop content in an organized, digestible way -> HTML/Tailwind/JS. 5. AI Topic Details -> Provide detailed information -> Dedicated content section with text and bullet points -> Close button to hide -> Presents specific workshop content in an organized, digestible way -> HTML/Tailwind/JS. 6. Key Themes -> Summarize Content Visually -> Doughnut Chart -> Hover for tooltips -> Visually represents the new synchronous/asynchronous distribution of workshop hours clearly -> Chart.js. 7. Deadline -> Create Urgency -> Countdown Timer -> Real-time updates -> Motivates users to act before the deadline -> JS. 8. AI Lesson Idea Generation -> Provide Practical AI Tool -> Text input, button, and text output -> User input for topic, click to generate -> Directly demonstrates AI's practical use in education, aligning with workshop theme -> Gemini API/JS. 9. Call to Action -> Drive Conversion -> Highlighted Button -> Click -> The primary goal of the page, linking to the provided form -> HTML/Tailwind. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #e0f2f1, #e3f2fd, #ede7f6);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div id="app" class="container mx-auto px-4 py-8 md:py-12">
+
+        <!-- Hero Section -->
+        <header class="text-center p-8 md:p-12 rounded-2xl shadow-lg gradient-bg mb-12">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex justify-center items-center gap-4 mb-6">
+                    <img src="https://antigo.ifrr.edu.br/reitoria/comunicacao-social/identidade-visual/logotipo-ifrr-2013-aplicacao-vertical/image" alt="Logo IFRR" class="h-28 object-contain">
+                    <img src="https://boavista.ifrr.edu.br/noticias/pbaex-2013-projetos-de-extensao-comecam-a-ser-implementados/image_mini" alt="Logo PBAEX" class="h-32 object-contain">
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Inovação Pedagógica na EPT: Tecnologias e Práticas para Educadores</h1>
+                <p class="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto mb-8">Você é professor da EPT e quer transformar suas aulas com ferramentas inovadoras? Participe das oficinas gratuitas promovidas pelo IFRR – Campus Boa Vista!</p>
+                <a href="#form-section" class="inline-block bg-teal-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-teal-600 transition-transform transform hover:scale-105 shadow-md">
+                    Garanta sua Vaga Agora!
+                </a>
+            </div>
+        </header>
+
+        <!-- About the Workshop Section -->
+        <section id="about" class="mb-12">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-slate-900">O que você vai aprender?</h2>
+                <p class="text-slate-600 mt-2">Clique nos tópicos abaixo para explorar o conteúdo das nossas oficinas interativas.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1: Gamification (Kahoot) -->
+                <div id="kahootCard" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-4">🎮</span>
+                        <h3 class="text-2xl font-bold text-slate-800">Gamificação com Kahoot!</h3>
+                    </div>
+                    <p class="text-slate-600">Aprenda a criar quizzes dinâmicos e jogos interativos para engajar seus alunos e avaliar o aprendizado de forma divertida.</p>
+                </div>
+                <!-- Card 2: Google Workspace -->
+                <div id="googleWorkspaceCard" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-4">🗂️</span>
+                        <h3 class="text-2xl font-bold text-slate-800">Organização e Colaboração com Google Workspace</h3>
+                    </div>
+                    <p class="text-slate-600">Explore ferramentas essenciais como Documentos, Planilhas, Apresentações e Formulários para otimizar suas aulas.</p>
+                </div>
+                <!-- Card 3: Artificial Intelligence -->
+                <div id="aiCard" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-4">🤖</span>
+                        <h3 class="text-2xl font-bold text-slate-800">Inteligência Artificial na Educação</h3>
+                    </div>
+                    <p class="text-slate-600">Descubra como utilizar ferramentas de IA para personalizar o ensino, criar materiais didáticos e preparar os alunos para o futuro.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kahoot Details Section (Initially Hidden) -->
+        <section id="kahootDetailsSection" class="hidden bg-white p-8 rounded-2xl shadow-xl mb-12 relative">
+            <button id="closeKahootDetails" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800 text-3xl font-bold">&times;</button>
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">🎮 Descobrindo o Kahoot! na Educação</h2>
+            <p class="text-slate-700 mb-6">O Kahoot é uma plataforma online que permite criar quizzes interativos em tempo real, trazendo o conceito de jogo para o aprendizado. Professores podem elaborar perguntas de múltipla escolha, verdadeiro ou falso e outros formatos, para aplicar em suas turmas de forma divertida e dinâmica.</p>
+            
+            <h3 class="text-2xl font-bold text-slate-800 mb-3">Por que usar Kahoot?</h3>
+            <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
+                <li>Estimula o engajamento dos alunos, despertando a competitividade saudável.</li>
+                <li>Facilita a revisão de conteúdos de forma rápida e interativa.</li>
+                <li>Permite acompanhar o desempenho da turma em tempo real.</li>
+                <li>Pode ser acessado de qualquer dispositivo com internet, sem necessidade de cadastro para responder.</li>
+            </ul>
+
+            <h3 class="text-2xl font-bold text-slate-800 mb-3">O que você vai aprender na oficina:</h3>
+            <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
+                <li>Como criar uma conta e iniciar um quiz.</li>
+                <li>Configuração das perguntas, tempo e pontuação.</li>
+                <li>Como aplicar o quiz na sala, presencialmente ou online.</li>
+                <li>Dicas para usar o Kahoot como ferramenta diagnóstica e de reforço.</li>
+            </ul>
+            <p class="text-slate-700">Essa oficina é perfeita para professores que querem inovar suas aulas, tornando o aprendizado mais leve, participativo e eficaz.</p>
+        </section>
+
+        <!-- Google Workspace Details Section (Initially Hidden) -->
+        <section id="googleWorkspaceDetailsSection" class="hidden bg-white p-8 rounded-2xl shadow-xl mb-12 relative">
+            <button id="closeGoogleWorkspaceDetails" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800 text-3xl font-bold">&times;</button>
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">🗂️ Google Workspace: Ferramentas Essenciais para Educadores</h2>
+            <p class="text-slate-700 mb-6">O Google Workspace reúne ferramentas essenciais para o dia a dia do professor, como Documentos, Planilhas, Apresentações, Formulários e Drive. Essa oficina vai mostrar como usar essas plataformas para planejar aulas, organizar materiais e criar atividades interativas com facilidade.</p>
+            
+            <h3 class="text-2xl font-bold text-slate-800 mb-3">Por que usar Google Workspace?</h3>
+            <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
+                <li>Colaboração em tempo real com colegas e alunos.</li>
+                <li>Armazenamento seguro e acesso fácil de qualquer dispositivo.</li>
+                <li>Ferramentas integradas que facilitam desde o planejamento até a avaliação.</li>
+                <li>Automação de tarefas simples que economizam tempo.</li>
+            </ul>
+
+            <h3 class="text-2xl font-bold text-slate-800 mb-3">O que você vai aprender na oficina:</h3>
+            <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
+                <li>Criar e compartilhar documentos, planilhas e apresentações.</li>
+                <li>Montar formulários para avaliações e pesquisas.</li>
+                <li>Organizar arquivos no Google Drive de forma eficiente.</li>
+                <li>Usar templates prontos para acelerar o trabalho.</li>
+            </ul>
+            <p class="text-slate-700">Ideal para professores que querem otimizar seu trabalho, melhorar a comunicação e inovar no ensino usando recursos digitais acessíveis.</p>
+        </section>
+
+        <!-- AI Details Section (Initially Hidden) -->
+        <section id="aiDetailsSection" class="hidden bg-white p-8 rounded-2xl shadow-xl mb-12 relative">
+            <button id="closeAIDetails" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800 text-3xl font-bold">&times;</button>
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">🤖 Inteligência Artificial Generativa no Ensino</h2>
+            <p class="text-slate-700 mb-6">A inteligência artificial generativa é uma tecnologia que cria conteúdos — textos, imagens, vídeos e mais — a partir de comandos simples. Nesta oficina, os professores vão aprender como usar ferramentas de IA para planejar aulas, criar materiais personalizados e estimular a criatividade dos alunos.</p>
+            
+            <h3 class="text-2xl font-bold text-slate-800 mb-3">Por que usar IA generativa no ensino?</h3>
+            <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
+                <li>Agiliza a criação de conteúdos educativos e avaliações.</li>
+                <li>Facilita a personalização do ensino para diferentes níveis e estilos de aprendizagem.</li>
+                <li>Abre possibilidades para atividades inovadoras que engajam os alunos.</li>
+                <li>Ajuda a economizar tempo em tarefas repetitivas e burocráticas.</li>
+            </ul>
+
+            <h3 class="text-2xl font-bold text-slate-800 mb-3">O que você vai aprender na oficina:</h3>
+            <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
+                <li>Introdução às principais ferramentas de IA generativa (como ChatGPT, Gemini, DALL·E).</li>
+                <li>Como usar IA para gerar textos, resumos, exercícios e imagens educativas.</li>
+                <li>Dicas de aplicação ética e segura da IA na educação.</li>
+                <li>Exemplos práticos para transformar suas aulas.</li>
+            </ul>
+            <p class="text-slate-700">Essa oficina é para educadores que querem dominar o futuro do ensino e incorporar a tecnologia de ponta para criar experiências de aprendizagem únicas.</p>
+        </section>
+
+
+        <!-- Topics Overview Chart -->
+        <section id="topics-overview" class="mb-12">
+             <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-slate-900">Estrutura e Carga Horária das Oficinas</h2>
+                <p class="text-slate-600 mt-2">A formação terá uma carga horária total de 20 horas, distribuídas em atividades síncronas e assíncronas.</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <div class="chart-container relative mx-auto w-full max-w-md h-72 md:h-96 max-h-[400px]">
+                    <canvas id="topicsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Details & Countdown Section -->
+        <section id="details" class="text-center bg-blue-100/50 p-8 rounded-2xl mb-12 shadow-inner">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">Inscrições Abertas!</h2>
+            <p class="text-slate-700 text-lg mb-6">As oficinas são 100% gratuitas, mas as vagas são limitadas. Não perca tempo!</p>
+            <div class="max-w-2xl mx-auto">
+                <p class="font-semibold text-xl text-slate-800 mb-2">As inscrições se encerram em:</p>
+                <div id="countdown" class="flex justify-center items-center space-x-2 sm:space-x-4 text-center">
+                    <div>
+                        <div id="days" class="text-4xl font-bold text-teal-600 bg-white p-4 rounded-lg shadow-md w-20">00</div>
+                        <div class="text-sm text-slate-600 mt-2">Dias</div>
+                    </div>
+                    <div>
+                        <div id="hours" class="text-4xl font-bold text-teal-600 bg-white p-4 rounded-lg shadow-md w-20">00</div>
+                        <div class="text-sm text-slate-600 mt-2">Horas</div>
+                    </div>
+                    <div>
+                        <div id="minutes" class="text-4xl font-bold text-teal-600 bg-white p-4 rounded-lg shadow-md w-20">00</div>
+                        <div class="text-sm text-slate-600 mt-2">Minutos</div>
+                    </div>
+                    <div>
+                        <div id="seconds" class="text-4xl font-bold text-teal-600 bg-white p-4 rounded-lg shadow-md w-20">00</div>
+                        <div class="text-sm text-slate-600 mt-2">Segundos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Lesson Idea Generator Section -->
+        <section id="ai-generator" class="bg-white p-10 rounded-2xl shadow-xl mb-12">
+            <h2 class="text-3xl font-bold text-slate-900 text-center mb-4">✨ Gerador de Ideias de Aula com IA ✨</h2>
+            <p class="text-slate-600 text-center text-lg mb-6">Explore o potencial da Inteligência Artificial! Descreva um tópico ou desafio pedagógico na EPT e a IA sugerirá ideias criativas de aula, atividades e como integrar a tecnologia.</p>
+
+            <div class="max-w-3xl mx-auto">
+                <label for="lessonTopic" class="block text-slate-700 text-lg font-semibold mb-2">Descreva seu tópico ou desafio de aula na EPT:</label>
+                <textarea id="lessonTopic" rows="4" class="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 mb-4 text-slate-800" placeholder="Ex: Como ensinar conceitos de automação industrial de forma prática para alunos do ensino médio técnico?"></textarea>
+                
+                <button id="generateIdeasBtn" class="w-full bg-blue-700 text-white font-bold py-3 px-6 rounded-full text-lg hover:bg-blue-800 transition-transform transform hover:scale-105 shadow-md flex items-center justify-center">
+                    <span class="mr-2">🚀</span> Gerar Ideias de Aula
+                </button>
+
+                <div id="loadingIndicator" class="hidden text-center text-slate-600 mt-4">
+                    Gerando ideias... Aguarde um momento.
+                </div>
+
+                <div id="aiResponse" class="mt-8 p-6 bg-blue-50/70 rounded-lg border border-blue-200 text-slate-800 hidden">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Suas Ideias de Aula:</h3>
+                    <p class="text-slate-700 whitespace-pre-wrap"></p>
+                </div>
+                <div id="aiError" class="hidden mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                    Ocorreu um erro ao gerar as ideias. Tente novamente mais tarde.
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Final CTA Section -->
+        <section id="form-section" class="bg-white p-10 rounded-2xl shadow-xl text-center">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">Pronto para Inovar?</h2>
+            <p class="text-slate-600 text-lg mb-6">📝 Preencha o formulário até <span class="font-bold">sexta-feira, 21 de junho</span>, e garanta sua vaga!</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSetsE0BrBS6jvCENdhj4cag1QULtwsGS5EMunHHwWdfBi8C6g/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="inline-block bg-amber-400 text-slate-900 font-bold py-4 px-10 rounded-full text-xl hover:bg-amber-500 transition-transform transform hover:scale-105 shadow-lg">
+                QUERO ME INSCREVER
+            </a>
+            <p class="text-xs text-slate-500 mt-4">Você será redirecionado para o formulário de inscrição do Google.</p>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const countdownEndDate = new Date('2025-06-21T23:59:59').getTime();
+
+            const countdownFunction = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countdownEndDate - now;
+
+                const daysEl = document.getElementById('days');
+                const hoursEl = document.getElementById('hours');
+                const minutesEl = document.getElementById('minutes');
+                const secondsEl = document.getElementById('seconds');
+                const countdownContainer = document.getElementById('countdown');
+
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    if (countdownContainer) {
+                        countdownContainer.innerHTML = "<div class='w-full text-xl font-bold text-red-600 bg-white p-4 rounded-lg'>Inscrições Encerradas!</div>";
+                    }
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                if(daysEl) daysEl.innerText = String(days).padStart(2, '0');
+                if(hoursEl) hoursEl.innerText = String(hours).padStart(2, '0');
+                if(minutesEl) minutesEl.innerText = String(minutes).padStart(2, '0');
+                if(secondsEl) secondsEl.innerText = String(seconds).padStart(2, '0');
+
+            }, 1000);
+
+            const ctx = document.getElementById('topicsChart');
+            if (ctx) {
+                 new Chart(ctx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Atividades Síncronas', 'Atividades Assíncronas'],
+                        datasets: [{
+                            label: 'Carga Horária',
+                            data: [40, 60],
+                            backgroundColor: [
+                                'rgba(59, 130, 246, 0.7)',  // Blue for Synchronous
+                                'rgba(20, 184, 166, 0.7)'   // Teal for Asynchronous
+                            ],
+                            borderColor: [
+                                'rgba(59, 130, 246, 1)',
+                                'rgba(20, 184, 166, 1)'
+                            ],
+                            borderWidth: 1,
+                            hoverOffset: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    font: {
+                                        size: 14,
+                                        family: 'Poppins'
+                                    },
+                                    color: '#475569'
+                                }
+                            },
+                            tooltip: {
+                                bodyFont: { family: 'Poppins' },
+                                titleFont: { family: 'Poppins' },
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed + '% da Carga Horária';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '50%'
+                    }
+                });
+            }
+
+            // Gemini API Integration for Lesson Idea Generator
+            const generateIdeasBtn = document.getElementById('generateIdeasBtn');
+            const lessonTopicInput = document.getElementById('lessonTopic');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const aiResponseDiv = document.getElementById('aiResponse');
+            const aiResponseText = aiResponseDiv ? aiResponseDiv.querySelector('p') : null;
+            const aiErrorDiv = document.getElementById('aiError');
+
+            if (generateIdeasBtn && lessonTopicInput && loadingIndicator && aiResponseDiv && aiResponseText && aiErrorDiv) {
+                generateIdeasBtn.addEventListener('click', async function() {
+                    const topic = lessonTopicInput.value.trim();
+                    if (!topic) {
+                        aiResponseDiv.classList.add('hidden');
+                        aiErrorDiv.classList.remove('hidden');
+                        aiErrorDiv.innerText = "Por favor, insira um tópico ou desafio para gerar ideias.";
+                        return;
+                    }
+
+                    loadingIndicator.classList.remove('hidden');
+                    aiResponseDiv.classList.add('hidden');
+                    aiErrorDiv.classList.add('hidden');
+
+                    let chatHistory = [];
+                    const prompt = `Gere 3 ideias de aula inovadoras e práticas para o ensino de "${topic}" na Educação Profissional e Tecnológica (EPT), focando na integração de ferramentas tecnológicas como Kahoot, Google Forms e conceitos de Inteligência Artificial. Para cada ideia, inclua uma breve descrição, os recursos tecnológicos a serem utilizados e como ela promove o engajamento dos alunos. Formate a resposta de forma clara e legível, com tópicos.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        const result = await response.json();
+
+                        if (result.candidates && result.candidates.length > 0 &&
+                            result.candidates[0].content && result.candidates[0].content.parts &&
+                            result.candidates[0].content.parts.length > 0) {
+                            const text = result.candidates[0].content.parts[0].text;
+                            aiResponseText.innerText = text;
+                            aiResponseDiv.classList.remove('hidden');
+                        } else {
+                            aiErrorDiv.innerText = "Não foi possível gerar ideias. Estrutura de resposta inesperada.";
+                            aiErrorDiv.classList.remove('hidden');
+                        }
+                    } catch (error) {
+                        aiErrorDiv.innerText = "Erro na comunicação com a API Gemini: " + error.message;
+                        aiErrorDiv.classList.remove('hidden');
+                    } finally {
+                        loadingIndicator.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Kahoot Details Section Logic
+            const kahootCard = document.getElementById('kahootCard');
+            const kahootDetailsSection = document.getElementById('kahootDetailsSection');
+            const closeKahootDetailsBtn = document.getElementById('closeKahootDetails');
+
+            if (kahootCard && kahootDetailsSection && closeKahootDetailsBtn) {
+                kahootCard.addEventListener('click', function() {
+                    kahootDetailsSection.classList.remove('hidden');
+                    kahootDetailsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+
+                closeKahootDetailsBtn.addEventListener('click', function() {
+                    kahootDetailsSection.classList.add('hidden');
+                });
+            }
+
+            // Google Workspace Details Section Logic
+            const googleWorkspaceCard = document.getElementById('googleWorkspaceCard');
+            const googleWorkspaceDetailsSection = document.getElementById('googleWorkspaceDetailsSection');
+            const closeGoogleWorkspaceDetailsBtn = document.getElementById('closeGoogleWorkspaceDetails');
+
+            if (googleWorkspaceCard && googleWorkspaceDetailsSection && closeGoogleWorkspaceDetailsBtn) {
+                googleWorkspaceCard.addEventListener('click', function() {
+                    googleWorkspaceDetailsSection.classList.remove('hidden');
+                    googleWorkspaceDetailsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+
+                closeGoogleWorkspaceDetailsBtn.addEventListener('click', function() {
+                    googleWorkspaceDetailsSection.classList.add('hidden');
+                });
+            }
+
+            // AI Details Section Logic
+            const aiCard = document.getElementById('aiCard');
+            const aiDetailsSection = document.getElementById('aiDetailsSection');
+            const closeAIDetailsBtn = document.getElementById('closeAIDetails');
+
+            if (aiCard && aiDetailsSection && closeAIDetailsBtn) {
+                aiCard.addEventListener('click', function() {
+                    aiDetailsSection.classList.remove('hidden');
+                    aiDetailsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+
+                closeAIDetailsBtn.addEventListener('click', function() {
+                    aiDetailsSection.classList.add('hidden');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
