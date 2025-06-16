@@ -11,21 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: "Educação Pastel" (Pastel Tones: bg-slate-50, text-slate-800, primary-blue-100/700, accent-teal-400/500, highlight-amber-400) -->
     <!-- Application Structure Plan: The SPA is structured as a user journey in multiple sections: 1. Hero: Captures immediate attention with the main value proposition and CTA. 2. About: Allows users to interactively explore workshop topics via clickable cards, where clicking a card reveals a new detailed section for that topic. 3. Topics Overview: Uses a doughnut chart to visually summarize the new information on synchronous/asynchronous activity distribution. 4. Details & Urgency: Provides logistical information and uses a countdown timer. 5. AI Lesson Idea Generator: Provides interactive value aligned with the workshop's theme. 6. Final CTA: A clear, final prompt to register. The addition of dynamic detail sections for workshop topics (e.g., Kahoot, Google Workspace, and AI details) allows for deeper, on-demand information consumption, enhancing user understanding and engagement without overwhelming the main view. -->
-    <!-- Visualization & Content Choices: Report Info -> Goal -> Viz/Presentation Method -> Interaction -> Justification -> Library/Method. 1. Workshop Title/Intro -> Inform/Attract -> Hero Section with animated gradient -> None -> Grabs attention effectively -> HTML/Tailwind. 2. Workshop Topics -> Explore Details -> Clickable Cards -> On-hover elevation effect and On-click reveal detailed section -> Encourages user interaction and discovery of in-depth content -> HTML/Tailwind/JS. 3. Kahoot Topic Details -> Provide detailed information -> Dedicated content section with text and bullet points -> Close button to hide -> Presents specific workshop content in an organized, digestible way -> HTML/Tailwind/JS. 4. Google Workspace Topic Details -> Provide detailed information -> Dedicated content section with text and bullet points -> Close button to hide -> Presents specific workshop content in an organized, digestible way -> HTML/Tailwind/JS. 5. AI Topic Details -> Provide detailed information -> Dedicated content section with text and bullet points -> Close button to hide -> Presents specific workshop content in an organized, digestible way -> HTML/Tailwind/JS. 6. Key Themes -> Summarize Content Visually -> Doughnut Chart -> Hover for tooltips -> Visually represents the new synchronous/asynchronous distribution of workshop hours clearly -> Chart.js. 7. Deadline -> Create Urgency -> Countdown Timer -> Real-time updates -> Motivates users to act before the deadline -> JS. 8. AI Lesson Idea Generation -> Provide Practical AI Tool -> Text input, button, and text output -> User input for topic, click to generate -> Directly demonstrates AI's practical use in education, aligning with workshop theme -> Gemini API/JS. 9. Call to Action -> Drive Conversion -> Highlighted Button -> Click -> The primary goal of the page, linking to the provided form -> HTML/Tailwind. -->
+    <!-- Visualization & Content Choices: Report Info -> Goal -> Viz/Presentation Method -> Interaction -> Justification -> Library/Method. 1. Workshop Title/Intro -> Inform/Attract -> Hero Section with animated gradient -> None -> Grabs attention effectively -> HTML/Tailwind. 2. Workshop Topics -> Explore Details -> Clickable Cards -> On-hover elevation effect and On-click reveal detailed section -> Encourages user interaction and discovery of in-depth content -> HTML/Tailwind/JS. 3. Kahoot Topic Details -> Provide detailed information -> Dedicated content section with text and bullet points -> Close button to hide -> Presents specific workshop content in an organized, digestible way -> HTML/Tailwind/JS. 4. Google Workspace Topic Details -> Provide detailed information -> Dedicated content section with text and bullet points -> Close button to hide -> Presents specific workshop content in an organized, digestible way -> HTML/Tailwind/JS. 5. AI Topic Details -> Provide detailed information -> Dedicated content section with text and bullet points -> Close button to hide -> Presents specific workshop content in an organized, digestible way -> HTML/Tailwind/JS. 6. Key Themes -> Summarize Content Visually -> Doughnut Chart -> Hover for tooltips -> Visually represents the new synchronous/assíncrona distribution of workshop hours clearly, with updated labels and slightly increased size -> Chart.js. 7. Deadline -> Create Urgency -> Countdown Timer -> Real-time updates -> Motivates users to act before the deadline -> JS. 8. AI Lesson Idea Generation -> Provide Practical AI Tool -> Text input, button, and text output -> User input for topic, click to generate -> Directly demonstrates AI's practical use in education, aligning with workshop theme -> Gemini API/JS. 9. Call to Action -> Drive Conversion -> Highlighted Button -> Click -> The primary goal of the page, linking to the provided form -> HTML/Tailwind. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
         }
-        .gradient-bg {
-            background: linear-gradient(135deg, #e0f2f1, #e3f2fd, #ede7f6);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-        }
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Changed header background to a very light blue, almost white */
+        .header-bg-very-light {
+            background-color: #f8faff; /* Um tom de azul muito claro, quase branco */
         }
     </style>
 </head>
@@ -34,11 +28,12 @@
     <div id="app" class="container mx-auto px-4 py-8 md:py-12">
 
         <!-- Hero Section -->
-        <header class="text-center p-8 md:p-12 rounded-2xl shadow-lg gradient-bg mb-12">
+        <header class="text-center p-8 md:p-12 rounded-2xl shadow-lg header-bg-very-light mb-12">
             <div class="max-w-4xl mx-auto">
-                <div class="flex justify-center items-center gap-4 mb-6">
-                    <img src="https://antigo.ifrr.edu.br/reitoria/comunicacao-social/identidade-visual/logotipo-ifrr-2013-aplicacao-vertical/image" alt="Logo IFRR" class="h-28 object-contain">
-                    <img src="https://boavista.ifrr.edu.br/noticias/pbaex-2013-projetos-de-extensao-comecam-a-ser-implementados/image_mini" alt="Logo PBAEX" class="h-32 object-contain">
+                <div class="flex justify-center items-center space-x-28 mb-6">
+                    <img src="https://i.imgur.com/cPCvYuY.png" alt="Logotipo do IFRR" class="h-48 object-contain">
+                    <img src="https://i.imgur.com/gt4iWcq.png" alt="Logotipo do Projeto" class="h-40 object-contain">
+                    <img src="https://i.imgur.com/dmEKMEj.png" alt="Logotipo do PBAEX" class="h-48 object-contain">
                 </div>
                 <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Inovação Pedagógica na EPT: Tecnologias e Práticas para Educadores</h1>
                 <p class="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto mb-8">Você é professor da EPT e quer transformar suas aulas com ferramentas inovadoras? Participe das oficinas gratuitas promovidas pelo IFRR – Campus Boa Vista!</p>
@@ -75,7 +70,7 @@
                 <div id="aiCard" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
                     <div class="flex items-center mb-4">
                         <span class="text-3xl mr-4">🤖</span>
-                        <h3 class="text-2xl font-bold text-slate-800">Inteligência Artificial na Educação</h3>
+                        <h3 class="2xl font-bold text-slate-800">Inteligência Artificial na Educação</h3>
                     </div>
                     <p class="text-slate-600">Descubra como utilizar ferramentas de IA para personalizar o ensino, criar materiais didáticos e preparar os alunos para o futuro.</p>
                 </div>
@@ -110,22 +105,23 @@
         <section id="googleWorkspaceDetailsSection" class="hidden bg-white p-8 rounded-2xl shadow-xl mb-12 relative">
             <button id="closeGoogleWorkspaceDetails" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800 text-3xl font-bold">&times;</button>
             <h2 class="text-3xl font-bold text-slate-900 mb-4">🗂️ Google Workspace: Ferramentas Essenciais para Educadores</h2>
-            <p class="text-slate-700 mb-6">O Google Workspace reúne ferramentas essenciais para o dia a dia do professor, como Documentos, Planilhas, Apresentações, Formulários e Drive. Essa oficina vai mostrar como usar essas plataformas para planejar aulas, organizar materiais e criar atividades interativas com facilidade.</p>
+            <p class="text-slate-700 mb-6">Liberte o potencial da sua sala de aula com o Google Workspace! Descubra como ferramentas poderosas como Documentos, Planilhas, Apresentações, Formulários e Drive podem revolucionar a sua rotina, do planejamento à execução de aulas interativas e dinâmicas.</p>
             
             <h3 class="text-2xl font-bold text-slate-800 mb-3">Por que usar Google Workspace?</h3>
             <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
-                <li>Colaboração em tempo real com colegas e alunos.</li>
-                <li>Armazenamento seguro e acesso fácil de qualquer dispositivo.</li>
+                <li>Otimize seu tempo e potencialize o aprendizado! O Google Workspace oferece:</li>
+                <li>Colaboração em tempo real que conecta você e seus alunos.</li>
+                <li>Acesso fácil e seguro a todos os seus materiais, de qualquer lugar.</li>
                 <li>Ferramentas integradas que facilitam desde o planejamento até a avaliação.</li>
-                <li>Automação de tarefas simples que economizam tempo.</li>
+                <li>Automação inteligente que liberta você de tarefas repetitivas.</li>
             </ul>
 
             <h3 class="text-2xl font-bold text-slate-800 mb-3">O que você vai aprender na oficina:</h3>
             <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
-                <li>Criar e compartilhar documentos, planilhas e apresentações.</li>
-                <li>Montar formulários para avaliações e pesquisas.</li>
-                <li>Organizar arquivos no Google Drive de forma eficiente.</li>
-                <li>Usar templates prontos para acelerar o trabalho.</li>
+                <li>Dominar a criação e o compartilhamento de documentos, planilhas e apresentações dinâmicas.</li>
+                <li>Elaborar formulários interativos para avaliações e feedback.</li>
+                <li>Organizar seus recursos didáticos no Google Drive de forma estratégica.</li>
+                <li>Aproveitar a eficiência de templates e recursos avançados para agilizar sua produção.</li>
             </ul>
             <p class="text-slate-700">Ideal para professores que querem otimizar seu trabalho, melhorar a comunicação e inovar no ensino usando recursos digitais acessíveis.</p>
         </section>
@@ -146,7 +142,7 @@
 
             <h3 class="text-2xl font-bold text-slate-800 mb-3">O que você vai aprender na oficina:</h3>
             <ul class="list-disc list-inside text-slate-700 mb-6 space-y-2">
-                <li>Introdução às principais ferramentas de IA generativa (como ChatGPT, Gemini, DALL·E).</li>
+                <li>Introdução às principais ferramentas de IA generativa (como ChatGPT, Gemini, NotebookLM).</li>
                 <li>Como usar IA para gerar textos, resumos, exercícios e imagens educativas.</li>
                 <li>Dicas de aplicação ética e segura da IA na educação.</li>
                 <li>Exemplos práticos para transformar suas aulas.</li>
@@ -162,7 +158,7 @@
                 <p class="text-slate-600 mt-2">A formação terá uma carga horária total de 20 horas, distribuídas em atividades síncronas e assíncronas.</p>
             </div>
             <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <div class="chart-container relative mx-auto w-full max-w-md h-72 md:h-96 max-h-[400px]">
+                <div class="chart-container relative mx-auto w-full max-w-md h-80 md:h-[28rem] max-h-[400px]">
                     <canvas id="topicsChart"></canvas>
                 </div>
             </div>
@@ -198,7 +194,10 @@
         <!-- AI Lesson Idea Generator Section -->
         <section id="ai-generator" class="bg-white p-10 rounded-2xl shadow-xl mb-12">
             <h2 class="text-3xl font-bold text-slate-900 text-center mb-4">✨ Gerador de Ideias de Aula com IA ✨</h2>
-            <p class="text-slate-600 text-center text-lg mb-6">Explore o potencial da Inteligência Artificial! Descreva um tópico ou desafio pedagógico na EPT e a IA sugerirá ideias criativas de aula, atividades e como integrar a tecnologia.</p>
+            <p class="text-slate-600 text-center text-lg mb-6">
+                <span class="block text-teal-600 text-2xl md:text-3xl font-extrabold mb-4 animate-pulse">⭐ EXPERIMENTE AGORA! ⭐</span>
+                Descreva um tópico ou desafio pedagógico na EPT e receba sugestões criativas de atividades, abordagens e integrações tecnológicas para transformar suas aulas.
+            </p>
 
             <div class="max-w-3xl mx-auto">
                 <label for="lessonTopic" class="block text-slate-700 text-lg font-semibold mb-2">Descreva seu tópico ou desafio de aula na EPT:</label>
@@ -274,7 +273,7 @@
                  new Chart(ctx.getContext('2d'), {
                     type: 'doughnut',
                     data: {
-                        labels: ['Atividades Síncronas', 'Atividades Assíncronas'],
+                        labels: ['Aulas Síncronas', 'Aulas Assíncronas'],
                         datasets: [{
                             label: 'Carga Horária',
                             data: [40, 60],
@@ -353,7 +352,8 @@
                     const prompt = `Gere 3 ideias de aula inovadoras e práticas para o ensino de "${topic}" na Educação Profissional e Tecnológica (EPT), focando na integração de ferramentas tecnológicas como Kahoot, Google Forms e conceitos de Inteligência Artificial. Para cada ideia, inclua uma breve descrição, os recursos tecnológicos a serem utilizados e como ela promove o engajamento dos alunos. Formate a resposta de forma clara e legível, com tópicos.`;
                     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                     const payload = { contents: chatHistory };
-                    const apiKey = "";
+                    // IMPORTANTE: Insira sua chave da API Gemini aqui
+                    const apiKey = ""; // <--- VOCÊ PRECISA COLOCAR SUA CHAVE AQUI!
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                     try {
@@ -377,6 +377,7 @@
                     } catch (error) {
                         aiErrorDiv.innerText = "Erro na comunicação com a API Gemini: " + error.message;
                         aiErrorDiv.classList.remove('hidden');
+                        console.error("Erro na API Gemini:", error);
                     } finally {
                         loadingIndicator.classList.add('hidden');
                     }
